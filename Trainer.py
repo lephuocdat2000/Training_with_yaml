@@ -4,4 +4,6 @@ class Trainer:
         self.model = model
         self.loss = loss
         self.train_loader = train_loader
+    def train(self):
+        pass
     

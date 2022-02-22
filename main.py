@@ -1,6 +1,6 @@
 from unittest import loader
 from data_loader import get_dataloader
-from 
+from optimizer import get_optimizer
 import yaml
 import sys 
 sys.path.append(".")
@@ -18,7 +18,7 @@ def main(config):
                        loss=loss,
                        optimizer=optimizer,
                        train_loader=train_loader)
-     trainer.train()
+    trainer.train()
 
 if __name__ == '__main__':
     with open('train.yaml') as file:
