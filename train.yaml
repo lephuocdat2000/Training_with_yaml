@@ -1,0 +1,21 @@
+data_loader:
+  path: 'dummy_data'
+transformer: 
+  Rescale: [256,256]
+  RandomCrop: 224
+  RandomPerspective: None
+model:
+  module: 'models.mobilenetv3.mobilenetv3_small'
+  class: 'MobileNetV3Small'
+  MobileNetV3Small:
+    num_classes: 2
+    pretrained: True
+    features_fixed: False
+loss: 
+  Sigmoid: None
+     
+optimizer:
+  SGD:
+    lr: 0.1
+    momentom : 0.9
+
