@@ -1,7 +1,7 @@
 from torch import nn
 
 def get_loss(loss):
-    if loss=='Sigmoid': return nn.Sigmoid()
-    if loss=='BinaryCrossEntropy': return nn.BCELoss()
-      
-            
+    for key in loss:
+        if key=='Sigmoid': return nn.Sigmoid()
+        if key=='BinaryCrossEntropy': return nn.BCELoss()
+        if key=='CrossEntropyLoss': return nn.CrossEntropyLoss()

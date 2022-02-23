@@ -5,7 +5,6 @@ import numpy as np
 def get_transformer(transf_cfg):
     lst_transform = [transforms.ToTensor()]
     for key,value in transf_cfg.items():
-        print('Active transformer')
         if key=='Rescale':
             lst_transform.append(transforms.Resize(value))
         if key=='RandomCrop':

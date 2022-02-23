@@ -1,23 +1,24 @@
-from unittest import loader
-from data_loader import get_dataloader
+import sys
+sys.path.append(".")
+
+from data_loader import get_dataloader, get_dataloader1
 from optimizer import get_optimizer
 import yaml
-import sys 
-sys.path.append(".")
 from models import get_model
 from loss import get_loss
-import Trainer
+from Trainer import Trainer
 
 def main(config):
-    train_loader = get_dataloader(config['data_loader']['path'],config['transformer'])
+    data_loader = get_dataloader1(config['data_loader']['path'],config['transformer'],config['data_loader']['batch_size'])
     model = get_model(config['model'])
     loss = get_loss(config['loss'])
-    optmizer = get_optmizer(config['optimizer'])
-    trainer = Trainer(config=config['train'],
-                       model=model,
-                       loss=loss,
-                       optimizer=optimizer,
-                       train_loader=train_loader)
+    optimizer = get_optimizer(model.parameters(), config['optimizer'])
+    trainer = Trainer(
+                     model=model,
+                     loss=loss,
+                     optimizer=optimizer,
+                     data_loader=data_loader,
+                     config = config['train'])
     trainer.train()
 
 if __name__ == '__main__':
