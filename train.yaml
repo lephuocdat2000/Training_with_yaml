@@ -1,12 +1,9 @@
 data_loader:
-  path: '/home/lephuocdat/Documents/dog_cat'
+  path: '/home/ocr/datlp5/dog_cat'
   batch_size: 64
   
-transformer: 
-  Rescale: [256,256]
-  RandomCrop: 224
-  RandomPerspective: None
-
+transformer: module1
+    
 model:
   module: 'models.mobilenetv3.mobilenetv3_small'
   class: 'MobileNetV3Small'
@@ -18,7 +15,7 @@ model:
 loss: 
   CrossEntropyLoss: None
      
-optimizer:
+optimizer: SGD
   SGD:
     lr: 0.1
     momentum : 0.9
@@ -26,6 +23,6 @@ optimizer:
 train:
   lr: 0.01
   epoch: 100
-  device: 'cpu'
+  device: 'cuda'
   
 

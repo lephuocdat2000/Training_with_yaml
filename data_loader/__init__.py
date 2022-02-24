@@ -1,14 +1,12 @@
 import sys
-from tkinter.tix import Tree 
 sys.path.append(".")
 
 from torch.utils.data import Dataset,DataLoader
-from torchvision import transforms
+
 from torchvision import datasets
 import cv2
-from transformer import get_transformer
+from transformer import Get_Transformer
 import os
-import torch
 
 class CustomizeDataset(Dataset):
     def __init__(self, dataset, transform=None):
@@ -32,14 +30,8 @@ class CustomizeDataset(Dataset):
             image = self.transform(image/float(255.0))
         
         return image, label   
-
-def get_dataloader(data_path, trans_cfg):
-    dataset = datasets.ImageFolder(root=data_path)
-    customize_dataset = CustomizeDataset(dataset,transform=get_transformer(trans_cfg))
-    data_loader = DataLoader(customize_dataset,batch_size=4,shuffle=True)
-    return data_loader
-
-def get_dataloader1(data_path,trans_cfg,batch_size):
-    dataset = {x:datasets.ImageFolder(os.path.join(data_path,x),get_transformer(trans_cfg)) for x in ['train','test']}
+        
+def get_dataloader1(data_path,transformer_name,batch_size):
+    dataset = {x:datasets.ImageFolder(os.path.join(data_path,x),Get_Transformer(transformer_name)) for x in ['train','test']}
     dataloader_dict = {x:DataLoader(dataset[x],batch_size=batch_size,shuffle=True,num_workers=4) for x in ['train','test']}
     return dataloader_dict

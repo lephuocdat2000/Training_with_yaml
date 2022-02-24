@@ -1,17 +1,25 @@
-import torch
-from torchvision import transforms
-import numpy as np
 
-def get_transformer(transf_cfg):
-    lst_transform = [transforms.ToTensor()]
-    for key,value in transf_cfg.items():
-        if key=='Rescale':
-            lst_transform.append(transforms.Resize(value))
-        if key=='RandomCrop':
-            lst_transform.append(transforms.RandomCrop(value))
-        if key=='RandomPerspective':
-            lst_transform.append(transforms.RandomPerspective())
+
+from torchvision import transforms
+from importlib import import_module
+import yaml
+
+class Get_Transformer:
+    def __init__(self,name:str):
+        self.name = name
+        self.config = yaml.safe_load('config.yaml')
     
-    transformer = transforms.Compose(lst_transform)
-    return transformer
+    def get_transformer(self,module, class_, value):
+        return getattr(import_module(module), class_)(**value)
     
+    def get_lst_transformer(self):
+        module = None
+        lst_transformer = []
+        for key,value in self.config[self.name]:
+            if key=='module':
+                module = value
+            if key=='classes':
+                for class_,params in self.config[self.name]['classes']: 
+                    lst_transformer.append(self.get_transformer(module,class_,**params))
+        return lst_transformer
+

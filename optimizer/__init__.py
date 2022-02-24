@@ -1,6 +1,5 @@
-from cv2 import dct
 from torch import optim
-from torch import nn 
+
 
 def get_optimizer(params,dct_cfg:dict):
     for name_opt in dct_cfg:
