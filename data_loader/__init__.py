@@ -1,11 +1,12 @@
 import sys
+from matplotlib import transforms
 sys.path.append(".")
 
 from torch.utils.data import Dataset,DataLoader
 
 from torchvision import datasets
 import cv2
-from transformer import Get_Transformer
+from transformer import Transformer
 import os
 
 class CustomizeDataset(Dataset):
@@ -31,7 +32,7 @@ class CustomizeDataset(Dataset):
         
         return image, label   
         
-def get_dataloader1(data_path,transformer_name,batch_size):
-    dataset = {x:datasets.ImageFolder(os.path.join(data_path,x),Get_Transformer(transformer_name)) for x in ['train','test']}
+def get_dataloader(path,transformer,batch_size):
+    dataset = {x:datasets.ImageFolder(os.path.join(path,x),transform=Transformer(transformer).get_composed_transformer()) for x in ['train','test']}
     dataloader_dict = {x:DataLoader(dataset[x],batch_size=batch_size,shuffle=True,num_workers=4) for x in ['train','test']}
     return dataloader_dict

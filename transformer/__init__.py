@@ -1,25 +1,21 @@
 
-
-from torchvision import transforms
+from torchvision.transforms import *
 from importlib import import_module
 import yaml
 
-class Get_Transformer:
+class Transformer:
     def __init__(self,name:str):
-        self.name = name
-        self.config = yaml.safe_load('config.yaml')
+        self.module = name
+        with open('transformer/config.yaml','r') as file:
+            self.config = yaml.safe_load(file)
     
-    def get_transformer(self,module, class_, value):
+    def get_transformer(self,module, class_,value):
         return getattr(import_module(module), class_)(**value)
     
-    def get_lst_transformer(self):
-        module = None
+    def get_composed_transformer(self):
         lst_transformer = []
-        for key,value in self.config[self.name]:
-            if key=='module':
-                module = value
-            if key=='classes':
-                for class_,params in self.config[self.name]['classes']: 
-                    lst_transformer.append(self.get_transformer(module,class_,**params))
-        return lst_transformer
+        for class_,value in self.config[self.module].items():
+            lst_transformer.append(self.get_transformer(self.module,class_,value))
 
+        transformser = transforms.Compose(lst_transformer)
+        return transformser

@@ -1,8 +1,7 @@
 data_loader:
-  path: '/home/ocr/datlp5/dog_cat'
+  path: '/home/lephuocdat/Documents/dog_cat'
   batch_size: 64
-  
-transformer: module1
+  transformer: 'torchvision.transforms'
     
 model:
   module: 'models.mobilenetv3.mobilenetv3_small'
@@ -12,17 +11,12 @@ model:
     pretrained: True
     features_fixed: True
     
-loss: 
-  CrossEntropyLoss: None
+loss: 'torch.nn'
      
-optimizer: SGD
-  SGD:
-    lr: 0.1
-    momentum : 0.9
+optimizer: 'torch.optim'
 
 train:
-  lr: 0.01
   epoch: 100
-  device: 'cuda'
+  device: 'cpu'
   
 

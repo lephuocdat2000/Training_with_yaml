@@ -1,15 +1,13 @@
-module1:
-  name: '''torchvision.transforms'''
-  classes:
-    Rescale: [256,256]
-    RandomPerspective: None
-    CorlorJitter: 
-      brightness: [0,100]
-      contrast:  [0,100]
-      saturation: [0,100]
-      hue: 0.25
-    RandomAffine: 
-      degree: [-60,30,180,90]
-    RandomHorizontalFlip: None
-    GaussianBlur: 
-      kernel_size: [3,3]        
+torchvision.transforms:
+  ToTensor:
+    {}
+  Resize: 
+    size: [256,256]
+  RandomPerspective:
+    {}
+  RandomAffine: 
+    degrees: [-30,30]
+  RandomHorizontalFlip: 
+    {}
+  GaussianBlur: 
+    kernel_size: [3,3]        

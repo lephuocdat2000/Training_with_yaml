@@ -3,19 +3,20 @@ import sys
 import torch
 sys.path.append(".")
 
-from data_loader import  get_dataloader1
-from optimizer import get_optimizer
+from data_loader import  get_dataloader
+from optimizer import Optimizer
 import yaml
 from models import get_model
-from loss import get_loss
+from loss import Loss
 from Trainer import Trainer
 
 def main(config):
-    data_loader = get_dataloader1(config['data_loader']['path'],config['transformer']['name'],config['data_loader']['batch_size'])
+    data_loader = get_dataloader(**config['data_loader'])
+    print(data_loader)
     model = get_model(config['model'])
     if torch.cuda.is_available(): model.cuda()
-    loss = get_loss(config['loss'])
-    optimizer = get_optimizer(model.parameters(), config['optimizer'])
+    loss = Loss(config['loss']).get_loss()
+    optimizer = Optimizer(model.parameters(), config['optimizer']).get_optimizer()
     trainer = Trainer(
                      model=model,
                      loss=loss,

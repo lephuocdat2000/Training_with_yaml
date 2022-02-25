@@ -15,7 +15,6 @@ class Trainer:
         
         since = time.time()
 
-        lr = self.config['lr']
         num_epochs = self.config['epoch']
         device = self.config['device']
 
