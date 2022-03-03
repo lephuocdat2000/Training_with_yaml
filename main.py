@@ -12,7 +12,6 @@ from Trainer import Trainer
 
 def main(config):
     data_loader = get_dataloader(**config['data_loader'])
-    print(data_loader)
     model = get_model(config['model'])
     if torch.cuda.is_available(): model.cuda()
     loss = Loss(config['loss']).get_loss()

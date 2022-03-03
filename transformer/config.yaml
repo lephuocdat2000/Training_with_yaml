@@ -1,13 +1,23 @@
 torchvision.transforms:
-  ToTensor:
-    {}
-  Resize: 
-    size: [256,256]
-  RandomPerspective:
-    {}
-  RandomAffine: 
-    degrees: [-30,30]
-  RandomHorizontalFlip: 
-    {}
-  GaussianBlur: 
-    kernel_size: [3,3]        
+  required: 
+    ToTensor:
+      {}
+    Resize: 
+      size: [240,240]
+  random: 
+    Pad:
+       padding: 30
+    ColorJitter:
+      brightness: 0.25
+      contrast: 0.25
+      hue: 0.25
+    GaussianBlur: 
+      kernel_size: 5
+    RandomAffine:
+      degrees: 15
+    RandomErasing:
+      p: 0.2
+    
+
+  
+   

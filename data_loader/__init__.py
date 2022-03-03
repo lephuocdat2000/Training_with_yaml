@@ -33,6 +33,6 @@ class CustomizeDataset(Dataset):
         return image, label   
         
 def get_dataloader(path,transformer,batch_size):
-    dataset = {x:datasets.ImageFolder(os.path.join(path,x),transform=Transformer(transformer).get_composed_transformer()) for x in ['train','test']}
+    dataset = {x:datasets.ImageFolder(os.path.join(path,x),transform=Transformer(x, transformer).get_composed_transformer()) for x in ['train','test']}
     dataloader_dict = {x:DataLoader(dataset[x],batch_size=batch_size,shuffle=True,num_workers=4) for x in ['train','test']}
     return dataloader_dict

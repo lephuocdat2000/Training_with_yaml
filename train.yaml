@@ -1,5 +1,5 @@
 data_loader:
-  path: '/home/lephuocdat/Documents/dog_cat'
+  path: '/home/lephuocdat/Documents/dataset_bangcap/data_train_bangcap'
   batch_size: 64
   transformer: 'torchvision.transforms'
     
@@ -18,5 +18,8 @@ optimizer: 'torch.optim'
 train:
   epoch: 100
   device: 'cpu'
-  
+  checkpoint_path: 'checkpoints/bangcap/'
 
+evaluation:
+  best_checkpoint: 'checkpoints/bangcap/bangcap-0.944100022315979-2022-03-02-.pt'
+  test_data: '/home/lephuocdat/Documents/dataset_bangcap/data_train_bangcap/test'
